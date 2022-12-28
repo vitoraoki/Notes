@@ -6,11 +6,12 @@ import com.example.notes.presentation.mapper.NoteModelToNoteUiModelMapper
 import com.example.notes.presentation.ui.model.NoteUiModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import javax.inject.Inject
 
-class MainViewModel : ViewModel() {
-
-    private val getNotes = GetNotesUseCase()
-    private val noteModelUiMapper = NoteModelToNoteUiModelMapper()
+class MainViewModel @Inject constructor(
+    private val getNotes: GetNotesUseCase,
+    private val noteModelUiMapper: NoteModelToNoteUiModelMapper,
+) : ViewModel() {
 
     private val _notesFlow: MutableStateFlow<List<NoteUiModel>> = MutableStateFlow(listOf())
     val notesFlow: Flow<List<NoteUiModel>>

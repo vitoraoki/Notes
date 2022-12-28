@@ -4,8 +4,9 @@ import com.example.notes.data.model.CRITICAL
 import com.example.notes.data.model.LOW
 import com.example.notes.data.model.MEDIUM
 import com.example.notes.data.model.NoteData
+import javax.inject.Inject
 
-class NotesDataBase {
+class NotesDataBase @Inject constructor() {
 
     fun mockNotesList(): List<NoteData> =
         listOf(

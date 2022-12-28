@@ -2,7 +2,6 @@ package com.example.notes.presentation
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -12,9 +11,9 @@ import com.example.notes.ui.theme.NotesTheme
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-class MainActivity : ComponentActivity(), NoteClickListener {
+class MainActivity : BaseActivity(), NoteClickListener {
 
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

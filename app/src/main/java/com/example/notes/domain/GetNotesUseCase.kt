@@ -2,10 +2,15 @@ package com.example.notes.domain
 
 import com.example.notes.data.repository.NotesRepository
 import com.example.notes.domain.model.NoteModel
+import javax.inject.Inject
 
-class GetNotesUseCase {
+interface GetNotesUseCase {
+    operator fun invoke(): List<NoteModel>
+}
 
-    private val notesRepository = NotesRepository()
+class GetNotes @Inject constructor(
+    private val notesRepository: NotesRepository
+): GetNotesUseCase {
 
-    operator fun invoke(): List<NoteModel> = notesRepository.mockNotesList()
+    override operator fun invoke(): List<NoteModel> = notesRepository.mockNotesList()
 }

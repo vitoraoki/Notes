@@ -3,12 +3,19 @@ package com.example.notes.data.repository
 import com.example.notes.data.database.NotesDataBase
 import com.example.notes.data.mapper.NoteDataToNoteModelMapper
 import com.example.notes.domain.model.NoteModel
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class NotesRepository {
+interface NotesRepository {
+    fun mockNotesList(): List<NoteModel>
+}
 
-    private val notesDataBase = NotesDataBase()
-    private val noteModelMapper = NoteDataToNoteModelMapper()
+@Singleton
+class NotesRepositoryImpl @Inject constructor(
+    private val notesDataBase: NotesDataBase,
+    private val noteModelMapper: NoteDataToNoteModelMapper,
+): NotesRepository {
 
-    fun mockNotesList(): List<NoteModel> =
+    override fun mockNotesList(): List<NoteModel> =
         notesDataBase.mockNotesList().map(noteModelMapper::map)
 }

@@ -3,10 +3,11 @@ package com.example.notes.data.mapper
 import com.example.notes.data.model.NoteData
 import com.example.notes.domain.model.NoteModel
 import java.util.*
+import javax.inject.Inject
 
-class NoteDataToNoteModelMapper {
-
-    private val notePriorityMapper = NotePriorityDataToNotePriorityMapper()
+class NoteDataToNoteModelMapper @Inject constructor(
+    private val notePriorityMapper: NotePriorityDataToNotePriorityMapper
+) {
 
     fun map(noteData: NoteData): NoteModel =
         NoteModel(
