@@ -1,4 +1,4 @@
-package com.example.notes.presentation
+package com.example.notes.presentation.home
 
 import androidx.lifecycle.ViewModel
 import com.example.notes.di.keys.ViewModelKey
@@ -12,8 +12,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 @ContributesMultibinding(AppScope::class)
-@ViewModelKey(MainViewModel::class)
-class MainViewModel @Inject constructor(
+@ViewModelKey(HomeViewModel::class)
+class HomeViewModel @Inject constructor(
     getNotes: GetNotesUseCase,
     private val noteModelUiMapper: NoteModelToNoteUiModelMapper,
 ) : ViewModel() {

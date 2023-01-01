@@ -15,6 +15,14 @@ object Dependencies {
     const val composeUiTestManifest = "androidx.compose.ui:ui-test-manifest:${Versions.compose}"
 
     const val androidxCoreKtx = "androidx.core:core-ktx:${Versions.androidCoreKtx}"
+    const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
+    const val constraintLayout =
+        "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
+    const val material = "com.google.android.material:material:${Versions.material}"
+
+    const val navigationFragmentKtx =
+        "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
+    const val navigationUiKtx = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
 
     const val junit = "junit:junit:${Versions.junit}"
 }

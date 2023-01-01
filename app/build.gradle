@@ -50,12 +50,18 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
 
     // Android core
     implementation Dependencies.androidxCoreKtx
+    implementation Dependencies.appCompat
+    implementation Dependencies.constraintLayout
+    implementation Dependencies.material
 
     // Compose
     implementation Dependencies.composeUi
@@ -75,6 +81,10 @@ dependencies {
     // Dagger 2
     implementation Dependencies.dagger
     kapt Dependencies.daggerCompiler
+
+    // Navigation
+    implementation Dependencies.navigationFragmentKtx
+    implementation Dependencies.navigationUiKtx
 
     // Test
     testImplementation Dependencies.junit
