@@ -2,6 +2,8 @@ package com.example.notes.di.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.notes.di.scopes.AppScope
+import com.squareup.anvil.annotations.ContributesBinding
 import javax.inject.Inject
 import javax.inject.Provider
 import javax.inject.Singleton
@@ -10,6 +12,7 @@ private const val EXCEPTION_MESSAGE = "unknown model class "
 
 @Suppress("UNCHECKED_CAST")
 @Singleton
+@ContributesBinding(AppScope::class)
 class ViewModelFactory @Inject constructor(
     private val creators: MutableMap<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>
 ) : ViewModelProvider.Factory {

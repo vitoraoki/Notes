@@ -1,18 +1,12 @@
 package com.example.notes.di
 
+import com.example.notes.di.scopes.AppScope
 import com.example.notes.presentation.BaseActivity
-import dagger.Component
+import com.squareup.anvil.annotations.MergeComponent
 import javax.inject.Singleton
 
 @Singleton
-@Component(
-    modules = [
-        AppModule::class,
-        RepositoryModule::class,
-        UseCaseModule::class,
-        ViewModelModule::class,
-    ]
-)
+@MergeComponent(AppScope::class)
 interface AppComponent {
 
     fun inject(target: BaseActivity)
