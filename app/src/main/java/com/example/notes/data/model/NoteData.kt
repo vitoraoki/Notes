@@ -11,3 +11,5 @@ data class NoteData(
     val date: Long,
     val priority: String,
 )
+
+fun getPriorityList(): List<String> = listOf(CRITICAL, MEDIUM, LOW)

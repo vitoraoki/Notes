@@ -15,5 +15,5 @@ class GetNotes @Inject constructor(
     private val notesRepository: NotesRepository
 ): GetNotesUseCase {
 
-    override operator fun invoke(): List<NoteModel> = notesRepository.mockNotesList()
+    override operator fun invoke(): List<NoteModel> = notesRepository.getNotes()
 }

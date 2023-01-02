@@ -6,17 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.notes.NoteClickListener
+import androidx.navigation.fragment.findNavController
+import com.example.notes.R
 import com.example.notes.databinding.FragmentHomeBinding
 import com.example.notes.presentation.BaseFragment
-import com.example.notes.presentation.ui.layout.NotesList
+import com.example.notes.presentation.createnote.CreateNoteFragment
+import com.example.notes.presentation.home.layout.NotesScreen
+import com.example.notes.presentation.home.listener.HomeClickListener
 import com.example.notes.ui.theme.NotesTheme
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-class HomeFragment : BaseFragment(), NoteClickListener {
+class HomeFragment : BaseFragment(), HomeClickListener {
 
     private val viewModel: HomeViewModel by viewModels { viewModelFactory }
     private lateinit var binding: FragmentHomeBinding
@@ -32,8 +36,8 @@ class HomeFragment : BaseFragment(), NoteClickListener {
 
             viewModel.notesFlow.onEach { notes ->
                 setContent {
-                    NotesTheme {
-                        NotesList(
+                    NotesTheme(darkTheme = false) {
+                        NotesScreen(
                             notes = notes,
                             listener = this@HomeFragment
                         )
@@ -42,7 +46,27 @@ class HomeFragment : BaseFragment(), NoteClickListener {
             }.launchIn(lifecycleScope)
         }
 
+        setupResultListener()
+
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getNotes()
+    }
+
+    private fun setupResultListener() {
+        setFragmentResultListener(
+            CreateNoteFragment.CREATE_NOTE_FRAGMENT_RESULT_KEY
+        ) { _, bundle ->
+            val result = bundle.getBoolean(CreateNoteFragment.CREATE_NOTE_RESULT_KEY)
+
+            if (result) {
+                val message = requireContext().getString(R.string.home_create_note_success_message)
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun onClick(text: String) {
@@ -51,5 +75,9 @@ class HomeFragment : BaseFragment(), NoteClickListener {
 
     override fun onLongClick(text: String) {
         Toast.makeText(requireContext(), "Long Click - $text", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onAddClick() {
+        findNavController().navigate(R.id.nav_create_note_fragment)
     }
 }

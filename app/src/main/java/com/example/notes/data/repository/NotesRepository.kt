@@ -9,7 +9,8 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 interface NotesRepository {
-    fun mockNotesList(): List<NoteModel>
+    fun saveNote(noteModel: NoteModel): Boolean
+    fun getNotes(): List<NoteModel>
 }
 
 @Singleton
@@ -17,8 +18,11 @@ interface NotesRepository {
 class NotesRepositoryImpl @Inject constructor(
     private val notesDataBase: NotesDataBase,
     private val noteModelMapper: NoteDataToNoteModelMapper,
-): NotesRepository {
+) : NotesRepository {
 
-    override fun mockNotesList(): List<NoteModel> =
-        notesDataBase.mockNotesList().map(noteModelMapper::map)
+    override fun saveNote(noteModel: NoteModel) =
+        notesDataBase.saveNote(noteModel)
+
+    override fun getNotes(): List<NoteModel> =
+        notesDataBase.getNotes().map(noteModelMapper::map)
 }

@@ -1,4 +1,4 @@
-package com.example.notes.presentation.ui.model
+package com.example.notes.presentation.model
 
 import androidx.compose.ui.graphics.Color
 

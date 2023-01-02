@@ -1,9 +1,9 @@
 package com.example.notes.domain.model
 
-import java.util.Date
+import java.util.*
 
 data class NoteModel(
-    val id: String,
+    val id: String = "",
     val title: String,
     val description: String,
     val date: Date,

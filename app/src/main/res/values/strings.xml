@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Notes</string>
+
+    <!-- Home -->
+    <string name="home_create_note_success_message">Note created!</string>
+
+    <!-- Create Note -->
+    <string name="create_note_top_bar">Create Note</string>
+    <string name="create_note_title_label">Title</string>
+    <string name="create_note_description_label">Description</string>
+    <string name="create_note_priority_label">Priority</string>
+    <string name="create_note_create_button_label">Create</string>
 </resources>

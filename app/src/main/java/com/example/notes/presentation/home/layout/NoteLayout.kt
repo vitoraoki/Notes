@@ -1,4 +1,4 @@
-package com.example.notes.presentation.ui.layout
+package com.example.notes.presentation.home.layout
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -12,10 +12,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.notes.NoteClickListener
 import com.example.notes.extensions.tapGestures
-import com.example.notes.presentation.ui.model.NotePriorityUi
-import com.example.notes.presentation.ui.model.NoteUiModel
+import com.example.notes.presentation.home.listener.NoteClickListener
+import com.example.notes.presentation.model.NotePriorityUi
+import com.example.notes.presentation.model.NoteUiModel
 import com.example.notes.ui.theme.NotesTheme
 import java.text.SimpleDateFormat
 import java.util.*
@@ -75,12 +75,12 @@ private fun Details(uiModel: NoteUiModel) {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Description(description = uiModel.description)
-        Date(date = uiModel.date)
+        NoteDate(date = uiModel.date)
     }
 }
 
 @Composable
-private fun Date(date: Date) {
+private fun NoteDate(date: Date) {
     val formattedDate = SimpleDateFormat(DATE_FORMAT, Locale.getDefault()).format(date)
 
     Text(

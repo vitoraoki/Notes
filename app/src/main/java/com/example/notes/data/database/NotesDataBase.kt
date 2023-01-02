@@ -1,14 +1,31 @@
 package com.example.notes.data.database
 
+import com.example.notes.data.mapper.NoteModelToNoteDataMapper
 import com.example.notes.data.model.CRITICAL
 import com.example.notes.data.model.LOW
 import com.example.notes.data.model.MEDIUM
 import com.example.notes.data.model.NoteData
+import com.example.notes.domain.model.NoteModel
 import javax.inject.Inject
+import javax.inject.Singleton
 
-class NotesDataBase @Inject constructor() {
+@Singleton
+class NotesDataBase @Inject constructor(
+    private val noteDataMapper: NoteModelToNoteDataMapper
+) {
 
-    fun mockNotesList(): List<NoteData> =
+    private val mockNotesList: MutableList<NoteData> = mutableListOf()
+
+    fun saveNote(noteModel: NoteModel): Boolean {
+        val noteData = noteDataMapper.map(mockNotesList.size.toString(), noteModel)
+        mockNotesList.add(noteData)
+
+        return true
+    }
+
+    fun getNotes(): List<NoteData> = mockNotesList
+
+    private fun mockNotesList(): List<NoteData> =
         listOf(
             NoteData(
                 id = "1",

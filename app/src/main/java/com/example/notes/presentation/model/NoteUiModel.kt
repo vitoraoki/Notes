@@ -1,6 +1,6 @@
-package com.example.notes.presentation.ui.model
+package com.example.notes.presentation.model
 
-import java.util.Date
+import java.util.*
 
 data class NoteUiModel(
     val title: String,

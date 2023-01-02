@@ -8,6 +8,13 @@
     <fragment
         android:id="@+id/nav_home_fragment"
         android:name="com.example.notes.presentation.home.HomeFragment"
+        android:label="HomeFragment"
         tools:layout="@layout/fragment_home"/>
+
+    <fragment
+        android:id="@+id/nav_create_note_fragment"
+        android:name="com.example.notes.presentation.createnote.CreateNoteFragment"
+        android:label="CreateNoteFragment"
+        tools:layout="@layout/fragment_create_note"/>
 
 </navigation>
