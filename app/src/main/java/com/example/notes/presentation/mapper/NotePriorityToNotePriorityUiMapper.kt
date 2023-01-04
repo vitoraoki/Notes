@@ -8,7 +8,7 @@ class NotePriorityToNotePriorityUiMapper @Inject constructor() {
 
     fun map(notePriority: NotePriority): NotePriorityUi =
         when(notePriority) {
-            NotePriority.Critical -> NotePriorityUi.Critical
+            NotePriority.High -> NotePriorityUi.High
             NotePriority.Medium -> NotePriorityUi.Medium
             NotePriority.Low -> NotePriorityUi.Low
         }

@@ -1,7 +1,7 @@
 package com.example.notes.data.database
 
 import com.example.notes.data.mapper.NoteModelToNoteDataMapper
-import com.example.notes.data.model.CRITICAL
+import com.example.notes.data.model.HIGH
 import com.example.notes.data.model.LOW
 import com.example.notes.data.model.MEDIUM
 import com.example.notes.data.model.NoteData
@@ -32,7 +32,7 @@ class NotesDataBase @Inject constructor(
                 title = "Critical Note 1",
                 description = "Critical Note 1 description",
                 date = System.currentTimeMillis(),
-                priority = CRITICAL
+                priority = HIGH
             ),
             NoteData(
                 id = "2",
@@ -53,7 +53,7 @@ class NotesDataBase @Inject constructor(
                 title = "Critical Note 2",
                 description = "Critical Note 2 description",
                 date = System.currentTimeMillis(),
-                priority = CRITICAL
+                priority = HIGH
             ),
             NoteData(
                 id = "5",
@@ -74,7 +74,7 @@ class NotesDataBase @Inject constructor(
                 title = "Critical Note 3",
                 description = "Critical Note 3 description",
                 date = System.currentTimeMillis(),
-                priority = CRITICAL
+                priority = HIGH
             ),
             NoteData(
                 id = "8",
@@ -95,7 +95,7 @@ class NotesDataBase @Inject constructor(
                 title = "Critical Note 4",
                 description = "Critical Note 4 description",
                 date = System.currentTimeMillis(),
-                priority = CRITICAL
+                priority = HIGH
             ),
             NoteData(
                 id = "11",
@@ -116,7 +116,7 @@ class NotesDataBase @Inject constructor(
                 title = "Critical Note 5",
                 description = "Critical Note 5 description",
                 date = System.currentTimeMillis(),
-                priority = CRITICAL
+                priority = HIGH
             ),
             NoteData(
                 id = "14",
@@ -137,7 +137,7 @@ class NotesDataBase @Inject constructor(
                 title = "Critical Note 6",
                 description = "Critical Note 6 description",
                 date = System.currentTimeMillis(),
-                priority = CRITICAL
+                priority = HIGH
             ),
             NoteData(
                 id = "17",
@@ -158,7 +158,7 @@ class NotesDataBase @Inject constructor(
                 title = "Critical Note 7",
                 description = "Critical Note 7 description",
                 date = System.currentTimeMillis(),
-                priority = CRITICAL
+                priority = HIGH
             ),
             NoteData(
                 id = "20",
@@ -179,7 +179,7 @@ class NotesDataBase @Inject constructor(
                 title = "Critical Note 8",
                 description = "Critical Note 8 description",
                 date = System.currentTimeMillis(),
-                priority = CRITICAL
+                priority = HIGH
             ),
             NoteData(
                 id = "23",

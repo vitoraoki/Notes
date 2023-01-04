@@ -108,7 +108,7 @@ fun RowPreview() {
                 title = "Note title",
                 description = "Note description",
                 date = Date(System.currentTimeMillis()),
-                priority = NotePriorityUi.Critical
+                priority = NotePriorityUi.High
             ),
             clickListener = object : NoteClickListener {
                 override fun onClick(text: String) {}

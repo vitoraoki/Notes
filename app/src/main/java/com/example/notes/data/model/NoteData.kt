@@ -1,6 +1,6 @@
 package com.example.notes.data.model
 
-const val CRITICAL = "CRITICAL"
+const val HIGH = "HIGH"
 const val MEDIUM = "MEDIUM"
 const val LOW = "LOW"
 
@@ -12,4 +12,4 @@ data class NoteData(
     val priority: String,
 )
 
-fun getPriorityList(): List<String> = listOf(CRITICAL, MEDIUM, LOW)
+fun getPriorityList(): List<String> = listOf(HIGH, MEDIUM, LOW)

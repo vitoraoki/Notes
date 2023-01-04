@@ -6,7 +6,7 @@ sealed class NotePriorityUi {
     abstract val backgroundColor: Color
     abstract val strokeColor: Color
 
-    data class Critical(
+    data class High(
         override val backgroundColor: Color = Color(0xFFFF7777),
         override val strokeColor: Color = Color(0xFFFF0000),
     ) : NotePriorityUi()
@@ -22,8 +22,8 @@ sealed class NotePriorityUi {
     ) : NotePriorityUi()
 
     companion object {
-        val Critical: Critical
-            get() = Critical()
+        val High: High
+            get() = High()
 
         val Medium: Medium
             get() = Medium()

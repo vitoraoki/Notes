@@ -1,6 +1,6 @@
 package com.example.notes.data.mapper
 
-import com.example.notes.data.model.CRITICAL
+import com.example.notes.data.model.HIGH
 import com.example.notes.data.model.LOW
 import com.example.notes.data.model.MEDIUM
 import com.example.notes.domain.model.NotePriority
@@ -11,7 +11,7 @@ class NotePriorityToNotePriorityDataMapper @Inject constructor(): Mapper<NotePri
 
     override fun map(it: NotePriority): String =
         when(it) {
-            is NotePriority.Critical -> CRITICAL
+            is NotePriority.High -> HIGH
             is NotePriority.Medium -> MEDIUM
             is NotePriority.Low -> LOW
         }
