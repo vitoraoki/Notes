@@ -24,5 +24,6 @@ object Dependencies {
         "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
     const val navigationUiKtx = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
 
-    const val junit = "junit:junit:${Versions.junit}"
+    const val junit = "org.junit.jupiter:junit-jupiter:${Versions.junit}"
+    const val mockk = "io.mockk:mockk:${Versions.mockk}"
 }

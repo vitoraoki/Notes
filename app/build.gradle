@@ -53,6 +53,11 @@ android {
     dataBinding {
         enabled = true
     }
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+        }
+    }
 }
 
 dependencies {
@@ -88,4 +93,5 @@ dependencies {
 
     // Test
     testImplementation Dependencies.junit
+    testImplementation Dependencies.mockk
 }
