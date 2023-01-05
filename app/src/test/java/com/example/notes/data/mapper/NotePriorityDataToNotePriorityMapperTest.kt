@@ -7,7 +7,7 @@ import com.example.notes.domain.model.NotePriority
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
-class NotePriorityDataToNotePriorityMapperTest {
+internal class NotePriorityDataToNotePriorityMapperTest {
 
     private val mapper = NotePriorityDataToNotePriorityMapper()
 

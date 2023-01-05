@@ -1,44 +1,43 @@
-package com.example.notes.data.mapper
+package com.example.notes.presentation.mapper
 
-import com.example.notes.data.model.HIGH
-import com.example.notes.data.model.LOW
-import com.example.notes.data.model.MEDIUM
 import com.example.notes.domain.model.NotePriority
+import com.example.notes.presentation.model.NotePriorityUi
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
-internal class NotePriorityToNotePriorityDataMapperTest {
+internal class NotePriorityToNotePriorityUiMapperTest {
 
-    private val mapper = NotePriorityToNotePriorityDataMapper()
+    private val mapper = NotePriorityToNotePriorityUiMapper()
 
     @Test
-    fun `Map NotePriority High to HIGH priority`() {
+    fun `With NotePriority High return NotePriorityUi High`() {
         val notePriority = NotePriority.High
 
         val actual = mapper.map(notePriority)
 
-        val expected = HIGH
+        val expected = NotePriorityUi.High
 
         assertEquals(expected, actual)
     }
 
     @Test
-    fun `Map NotePriority Medium to MEDIUM priority`() {
+    fun `With NotePriority Medium return NotePriorityUi Medium`() {
         val notePriority = NotePriority.Medium
 
         val actual = mapper.map(notePriority)
 
-        val expected = MEDIUM
+        val expected = NotePriorityUi.Medium
 
         assertEquals(expected, actual)
     }
+
     @Test
-    fun `Map NotePriority Low to LOW priority`() {
+    fun `With NotePriority Low return NotePriorityUi Low`() {
         val notePriority = NotePriority.Low
 
         val actual = mapper.map(notePriority)
 
-        val expected = LOW
+        val expected = NotePriorityUi.Low
 
         assertEquals(expected, actual)
     }

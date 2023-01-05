@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.assertEquals
 import java.util.Date
 
-class NoteDataToNoteModelMapperTest {
+internal class NoteDataToNoteModelMapperTest {
 
     private val notePriorityMapper: NotePriorityDataToNotePriorityMapper = mockk()
 
