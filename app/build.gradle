@@ -94,4 +94,5 @@ dependencies {
     // Test
     testImplementation Dependencies.junit
     testImplementation Dependencies.mockk
+    testImplementation Dependencies.coroutinesTest
 }

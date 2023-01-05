@@ -11,4 +11,5 @@ object Versions {
     const val constraintLayout = "2.1.4"
     const val material = "1.7.0"
     const val mockk = "1.13.3"
+    const val coroutinesTest = "1.6.4"
 }
