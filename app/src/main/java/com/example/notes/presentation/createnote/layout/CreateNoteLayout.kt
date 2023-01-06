@@ -1,14 +1,18 @@
 package com.example.notes.presentation.createnote.layout
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.notes.R
-import com.example.notes.presentation.createnote.listener.OnCreateNoteListener
+import com.example.notes.presentation.createnote.listener.CreateNoteClickListener
 import com.example.notes.presentation.model.CreateNoteUiModel
 import com.example.notes.ui.components.OutlinedDropdown
 import com.example.notes.ui.theme.NotesTheme
@@ -17,7 +21,7 @@ import java.util.*
 @Composable
 fun CreateNoteLayout(
     priorityOptions: List<String>,
-    listener: OnCreateNoteListener,
+    listener: CreateNoteClickListener,
 ) {
 
     var title by remember {
@@ -36,7 +40,7 @@ fun CreateNoteLayout(
         mutableStateOf(false)
     }
 
-    ScreenLayout {
+    ScreenLayout(listener = listener) {
         Title(
             title = title,
             onValueChanged = {
@@ -83,10 +87,16 @@ private fun isButtonEnabled(
 ): Boolean = title.isNotEmpty() && description.isNotEmpty() && selectedOption.isNotEmpty()
 
 @Composable
-private fun ScreenLayout(content: @Composable () -> Unit) {
+private fun ScreenLayout(
+    listener: CreateNoteClickListener,
+    content: @Composable () -> Unit,
+) {
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text(text = stringResource(id = R.string.create_note_top_bar)) })
+            TopAppBar(
+                title = { Text(text = stringResource(id = R.string.create_note_top_bar)) },
+                navigationIcon = { CloseScreenButton(listener) }
+            )
         }
     ) { paddingValues ->
         Column(
@@ -101,6 +111,16 @@ private fun ScreenLayout(content: @Composable () -> Unit) {
 }
 
 @Composable
+private fun CloseScreenButton(listener: CreateNoteClickListener) {
+    IconButton(onClick = listener::onCloseClick) {
+        Icon(
+            imageVector = Icons.Filled.Close,
+            contentDescription = "Close"
+        )
+    }
+}
+
+@Composable
 private fun Title(
     title: String,
     onValueChanged: (String) -> Unit
@@ -110,7 +130,10 @@ private fun Title(
         value = title,
         onValueChange = onValueChanged,
         singleLine = true,
-        label = { Text(text = stringResource(id = R.string.create_note_title_label)) }
+        label = { Text(text = stringResource(id = R.string.create_note_title_label)) },
+        keyboardOptions = KeyboardOptions.Default.copy(
+            capitalization = KeyboardCapitalization.Sentences
+        )
     )
 }
 
@@ -125,7 +148,10 @@ private fun Description(
             .height(200.dp),
         value = description,
         onValueChange = onValueChanged,
-        label = { Text(text = stringResource(id = R.string.create_note_description_label)) }
+        label = { Text(text = stringResource(id = R.string.create_note_description_label)) },
+        keyboardOptions = KeyboardOptions.Default.copy(
+            capitalization = KeyboardCapitalization.Sentences
+        )
     )
 }
 
@@ -152,8 +178,9 @@ fun CreateNoteLayoutPreview() {
     NotesTheme(darkTheme = false) {
         CreateNoteLayout(
             priorityOptions = listOf("Option 1", "Option 2", "Option 3", "Option 4", "Option 5"),
-            listener = object : OnCreateNoteListener {
+            listener = object : CreateNoteClickListener {
                 override fun onCreateClick(createNoteUiModel: CreateNoteUiModel) {}
+                override fun onCloseClick() {}
             }
         )
     }

@@ -13,11 +13,11 @@ import com.example.notes.data.model.getPriorityList
 import com.example.notes.databinding.FragmentCreateNoteBinding
 import com.example.notes.presentation.BaseFragment
 import com.example.notes.presentation.createnote.layout.CreateNoteLayout
-import com.example.notes.presentation.createnote.listener.OnCreateNoteListener
+import com.example.notes.presentation.createnote.listener.CreateNoteClickListener
 import com.example.notes.presentation.model.CreateNoteUiModel
 import com.example.notes.ui.theme.NotesTheme
 
-class CreateNoteFragment : BaseFragment(), OnCreateNoteListener {
+class CreateNoteFragment : BaseFragment(), CreateNoteClickListener {
 
     private lateinit var binding: FragmentCreateNoteBinding
     private val viewModel: CreateNoteViewModel by viewModels { viewModelFactory }
@@ -51,6 +51,10 @@ class CreateNoteFragment : BaseFragment(), OnCreateNoteListener {
             CREATE_NOTE_FRAGMENT_RESULT_KEY,
             bundleOf(CREATE_NOTE_RESULT_KEY to result)
         )
+        findNavController().popBackStack()
+    }
+
+    override fun onCloseClick() {
         findNavController().popBackStack()
     }
 
