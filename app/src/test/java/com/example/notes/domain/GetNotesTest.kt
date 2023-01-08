@@ -2,12 +2,13 @@ package com.example.notes.domain
 
 import com.example.notes.data.repository.NotesRepository
 import com.example.notes.domain.model.NoteModel
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
+import io.mockk.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
+@ExperimentalCoroutinesApi
 internal class GetNotesTest {
 
     private val notesRepository: NotesRepository = mockk()
@@ -15,16 +16,16 @@ internal class GetNotesTest {
     private val useCase = GetNotes(notesRepository)
 
     @Test
-    fun `Verify call getNotes from notesRepository`() {
+    fun `Verify call invoke`() = runTest {
         mock()
 
         useCase()
 
-        verify(exactly = 1) { notesRepository.getNotes() }
+        coVerify(exactly = 1) { notesRepository.getNotes() }
     }
 
     @Test
-    fun `Assert list of NoteModels`() {
+    fun `Assert list of NoteModels`() = runTest {
         val expected: List<NoteModel> = listOf(mockk(), mockk())
         mock(expected)
 
@@ -34,6 +35,6 @@ internal class GetNotesTest {
     }
 
     private fun mock(notes: List<NoteModel> = listOf()) {
-        every { notesRepository.getNotes() } returns notes
+        coEvery { notesRepository.getNotes() } returns notes
     }
 }

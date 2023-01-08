@@ -12,7 +12,7 @@ class NoteModelToNoteUiModelMapper @Inject constructor(
         NoteUiModel(
             title = noteModel.title,
             description = noteModel.description,
-            date = noteModel.date,
+            createdAt = noteModel.createdAt,
             priority = notePriorityUiMapper.map(noteModel.priority)
         )
 }

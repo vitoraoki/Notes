@@ -87,7 +87,7 @@ fun NotesScreenPreview() {
                 NoteUiModel(
                     title = "Note title",
                     description = "Note description",
-                    date = Date(System.currentTimeMillis()),
+                    createdAt = Date(System.currentTimeMillis()),
                     priority = NotePriorityUi.High
                 )
             ),

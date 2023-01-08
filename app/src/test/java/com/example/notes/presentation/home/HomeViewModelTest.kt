@@ -2,18 +2,19 @@ package com.example.notes.presentation.home
 
 import com.example.notes.domain.GetNotesUseCase
 import com.example.notes.domain.model.NoteModel
+import com.example.notes.extensions.TestCoroutineExtension
 import com.example.notes.presentation.mapper.NoteModelToNoteUiModelMapper
 import com.example.notes.presentation.model.NoteUiModel
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
+import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
 @ExperimentalCoroutinesApi
+@ExtendWith(TestCoroutineExtension::class)
 internal class HomeViewModelTest {
 
     private val getNotesUseCase: GetNotesUseCase = mockk()
@@ -24,6 +25,8 @@ internal class HomeViewModelTest {
         noteModelUiMapper = noteModelUiMapper
     )
 
+
+
     @Test
     fun `Verify calls getNotesUseCase and noteModelUiMapper`() = runTest {
         val noteModel: NoteModel = mockk()
@@ -32,7 +35,7 @@ internal class HomeViewModelTest {
 
         viewModel.getNotes()
 
-        verify(exactly = 1) {
+        coVerify(exactly = 1) {
             getNotesUseCase()
             noteModelUiMapper.map(noteModel)
         }
@@ -56,7 +59,7 @@ internal class HomeViewModelTest {
         notesModel: List<NoteModel> = listOf(mockk()),
         noteUiModel: NoteUiModel = mockk()
     ) {
-        every { getNotesUseCase() } returns notesModel
+        coEvery { getNotesUseCase() } returns notesModel
         every { noteModelUiMapper.map(any()) } returns noteUiModel
     }
 }

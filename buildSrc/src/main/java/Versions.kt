@@ -12,4 +12,5 @@ object Versions {
     const val material = "1.7.0"
     const val mockk = "1.13.3"
     const val coroutinesTest = "1.6.4"
+    const val room = "2.4.1"
 }

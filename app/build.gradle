@@ -91,8 +91,14 @@ dependencies {
     implementation Dependencies.navigationFragmentKtx
     implementation Dependencies.navigationUiKtx
 
+    // Room
+    implementation Dependencies.roomKtx
+    annotationProcessor Dependencies.roomCompiler
+    kapt Dependencies.roomCompiler
+
     // Test
     testImplementation Dependencies.junit
     testImplementation Dependencies.mockk
     testImplementation Dependencies.coroutinesTest
+    testImplementation Dependencies.roomTesting
 }

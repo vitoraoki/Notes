@@ -6,5 +6,5 @@ data class CreateNoteUiModel(
     val title: String,
     val description: String,
     val priority: String,
-    val date: Date,
+    val createdAt: Date,
 )

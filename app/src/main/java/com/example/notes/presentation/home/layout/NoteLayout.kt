@@ -75,7 +75,7 @@ private fun Details(uiModel: NoteUiModel) {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Description(description = uiModel.description)
-        NoteDate(date = uiModel.date)
+        NoteDate(date = uiModel.createdAt)
     }
 }
 
@@ -107,7 +107,7 @@ fun RowPreview() {
             uiModel = NoteUiModel(
                 title = "Note title",
                 description = "Note description",
-                date = Date(System.currentTimeMillis()),
+                createdAt = Date(System.currentTimeMillis()),
                 priority = NotePriorityUi.High
             ),
             clickListener = object : NoteClickListener {

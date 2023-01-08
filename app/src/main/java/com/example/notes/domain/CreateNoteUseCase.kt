@@ -7,18 +7,18 @@ import com.example.notes.presentation.model.CreateNoteUiModel
 import com.squareup.anvil.annotations.ContributesBinding
 import javax.inject.Inject
 
-interface SaveNoteUseCase {
-    operator fun invoke(createNoteUiModel: CreateNoteUiModel): Boolean
+interface CreateNoteUseCase {
+    suspend operator fun invoke(createNoteUiModel: CreateNoteUiModel): Boolean
 }
 
 @ContributesBinding(AppScope::class)
-class SaveNote @Inject constructor(
+class CreateNote @Inject constructor(
     private val noteModelMapper: CreateNoteUiModelToNoteModelMapper,
     private val repository: NotesRepository,
-): SaveNoteUseCase {
+): CreateNoteUseCase {
 
-    override fun invoke(createNoteUiModel: CreateNoteUiModel): Boolean {
+    override suspend fun invoke(createNoteUiModel: CreateNoteUiModel): Boolean {
         val noteModel = noteModelMapper.map(createNoteUiModel)
-        return repository.saveNote(noteModel)
+        return repository.createNote(noteModel)
     }
 }

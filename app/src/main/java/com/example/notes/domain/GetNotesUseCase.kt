@@ -7,7 +7,7 @@ import com.squareup.anvil.annotations.ContributesBinding
 import javax.inject.Inject
 
 interface GetNotesUseCase {
-    operator fun invoke(): List<NoteModel>
+    suspend operator fun invoke(): List<NoteModel>
 }
 
 @ContributesBinding(AppScope::class)
@@ -15,5 +15,5 @@ class GetNotes @Inject constructor(
     private val notesRepository: NotesRepository
 ): GetNotesUseCase {
 
-    override operator fun invoke(): List<NoteModel> = notesRepository.getNotes()
+    override suspend fun invoke(): List<NoteModel> = notesRepository.getNotes()
 }

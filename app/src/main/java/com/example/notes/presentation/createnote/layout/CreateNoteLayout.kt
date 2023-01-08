@@ -73,7 +73,7 @@ fun CreateNoteLayout(
                     title = title,
                     description = description,
                     priority = selectedPriority,
-                    date = Date(System.currentTimeMillis())
+                    createdAt = Date(System.currentTimeMillis())
                 )
             )
         }

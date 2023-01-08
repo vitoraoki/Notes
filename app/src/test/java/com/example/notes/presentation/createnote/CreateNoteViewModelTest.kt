@@ -1,43 +1,52 @@
 package com.example.notes.presentation.createnote
 
 import com.example.notes.base.TestBase
-import com.example.notes.domain.SaveNoteUseCase
+import com.example.notes.domain.CreateNoteUseCase
+import com.example.notes.extensions.TestCoroutineExtension
 import com.example.notes.presentation.model.CreateNoteUiModel
-import io.mockk.every
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
-import io.mockk.verify
-import org.junit.jupiter.api.Assertions.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.TestScope
+import kotlinx.coroutines.test.runTest
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
+@ExperimentalCoroutinesApi
+@ExtendWith(TestCoroutineExtension::class)
 internal class CreateNoteViewModelTest: TestBase() {
 
-    private val saveNoteUseCase: SaveNoteUseCase = mockk()
+    private val createNoteUseCase: CreateNoteUseCase = mockk()
 
-    private val viewModel = CreateNoteViewModel(saveNoteUseCase)
+    private val viewModel = CreateNoteViewModel(createNoteUseCase)
 
     @Test
-    fun `Verify call saveNoteUseCase`() {
+    fun `Verify call createNoteUseCase`() = runTest {
         mock()
         val createNoteUiModel: CreateNoteUiModel = mockk()
 
-        viewModel.saveNote(createNoteUiModel)
+        viewModel.createNote(createNoteUiModel)
 
-        verify(exactly = 1) {
-            saveNoteUseCase(createNoteUiModel)
+        coVerify(exactly = 1) {
+            createNoteUseCase(createNoteUiModel)
         }
     }
 
     @Test
-    fun `Assert saveNote result`() {
+    fun `Assert createNote result`() = runTest {
         val expected = randomResult()
         mock(saveNoteResult = expected)
 
-        val actual = viewModel.saveNote(mockk())
+        viewModel.createNote(mockk())
+        val actual = viewModel.saveNoteResult.first()
 
         assertEquals(expected, actual)
     }
 
     private fun mock(saveNoteResult: Boolean = randomResult()) {
-        every { saveNoteUseCase(any()) } returns saveNoteResult
+        coEvery { createNoteUseCase(any()) } returns saveNoteResult
     }
 }

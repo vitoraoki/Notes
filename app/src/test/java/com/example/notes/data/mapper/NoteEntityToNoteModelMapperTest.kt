@@ -1,36 +1,40 @@
-package com.example.notes.domain.mapper
+package com.example.notes.data.mapper
 
+import com.example.notes.data.database.entities.NoteEntity
 import com.example.notes.domain.model.NoteModel
 import com.example.notes.domain.model.NotePriority
-import com.example.notes.presentation.model.CreateNoteUiModel
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.util.*
 
-internal class CreateNoteUiModelToNoteModelMapperTest {
+internal class NoteEntityToNoteModelMapperTest {
 
-    private val mapper = CreateNoteUiModelToNoteModelMapper()
+    private val mapper = NoteEntityToNoteModelMapper()
 
+    private val id = 1L
     private val title = "title"
     private val description = "description"
-    private val createdAt = Date()
-    private val priority = NotePriority.HIGH
+    private val date = Date()
 
     @Test
-    fun `Map CreateNoteUiModel to NoteModel`() {
-        val createNoteUiModel = CreateNoteUiModel(
+    fun `Map from NoteData to NoteModel`() {
+        val priority = NotePriority.HIGH
+
+        val noteEntity = NoteEntity(
+            id = id,
             title = title,
             description = description,
-            createdAt = createdAt,
+            createdAt = date.time,
             priority = priority.name,
         )
 
-        val actual = mapper.map(createNoteUiModel)
+        val actual = mapper.map(noteEntity)
 
         val expected = NoteModel(
+            id = id.toString(),
             title = title,
             description = description,
-            createdAt = createdAt,
+            createdAt = date,
             priority = priority,
         )
 

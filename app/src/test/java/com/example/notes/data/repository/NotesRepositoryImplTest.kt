@@ -1,62 +1,83 @@
 package com.example.notes.data.repository
 
 import com.example.notes.base.TestBase
-import com.example.notes.data.database.NotesDataBase
-import com.example.notes.data.mapper.NoteDataToNoteModelMapper
-import com.example.notes.data.model.NoteData
+import com.example.notes.data.database.dao.NotesDao
+import com.example.notes.data.database.entities.NoteEntity
+import com.example.notes.data.mapper.NoteEntityToNoteModelMapper
+import com.example.notes.data.mapper.NoteModelToNoteEntityMapper
 import com.example.notes.domain.model.NoteModel
 import io.mockk.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
-internal class NotesRepositoryImplTest: TestBase() {
+@ExperimentalCoroutinesApi
+internal class NotesRepositoryImplTest {
 
-    private val notesDataBase: NotesDataBase = mockk()
-    private val noteModelMapper: NoteDataToNoteModelMapper = mockk()
+    private val notesDao: NotesDao = mockk()
+    private val noteEntityMapper: NoteModelToNoteEntityMapper = mockk()
+    private val noteModelMapper: NoteEntityToNoteModelMapper = mockk()
 
     private val repository = NotesRepositoryImpl(
-        notesDataBase = notesDataBase,
-        noteModelMapper = noteModelMapper
+        notesDao = notesDao,
+        noteEntityMapper = noteEntityMapper,
+        noteModelMapper = noteModelMapper,
     )
 
     @Test
-    fun `Verify call of saveNote database function`() {
-        mock()
+    fun `Verify calls createNote`() = runTest {
         val noteModel: NoteModel = mockk()
+        val noteEntity: NoteEntity = mockk()
+        mockCreateNote(noteEntity = noteEntity)
 
-        repository.saveNote(noteModel)
+        repository.createNote(noteModel)
 
-        verify(exactly = 1) { notesDataBase.saveNote(noteModel) }
-    }
-
-    @Test
-    fun `Assert saveNote result`() {
-        val expected = randomResult()
-        mock(saveNotesResult = expected)
-
-        val actual = repository.saveNote(mockk())
-
-        assertEquals(expected, actual)
-    }
-
-    @Test
-    fun `Verify calls of getNotes and noteModelMapper`() {
-        val noteData: NoteData = mockk()
-        mock(notesData = listOf(noteData))
-
-        repository.getNotes()
-
-        verify(exactly = 1) {
-            notesDataBase.getNotes()
-            noteModelMapper.map(noteData)
+        coVerify(exactly = 1) {
+            noteEntityMapper.map(noteModel)
+            notesDao.createNote(noteEntity)
         }
     }
 
     @Test
-    fun `Assert list of NoteModels`() {
-        val noteData: NoteData = mockk()
+    fun `Create note with success return true`() = runTest {
+        val noteEntity: NoteEntity = mockk()
+        mockCreateNote(noteEntity = noteEntity)
+
+        val actual = repository.createNote(mockk())
+
+        assertTrue(actual)
+    }
+
+    @Test
+    fun `Create note with error return false`() = runTest {
+        mockCreateNote(createNoteException = Exception())
+
+        val actual = repository.createNote(mockk())
+
+        assertFalse(actual)
+    }
+
+    @Test
+    fun `Verify calls getNotes`() = runTest {
+        val noteEntity: NoteEntity = mockk()
+        val noteEntities: List<NoteEntity> = listOf(noteEntity)
+        mockGetNotes(noteEntities = noteEntities)
+
+        repository.getNotes()
+
+        coVerify(exactly = 1) {
+            notesDao.getAllNotesOrderedByCreatedAt()
+            noteModelMapper.map(noteEntity)
+        }
+    }
+
+    @Test
+    fun `Get notes with success return list of NoteModel`() = runTest {
+        val noteEntity: NoteEntity = mockk()
+        val noteEntities: List<NoteEntity> = listOf(noteEntity)
         val noteModel: NoteModel = mockk()
-        mock(notesData = listOf(noteData), noteModel = noteModel)
+        mockGetNotes(noteEntities = noteEntities, noteModel = noteModel)
 
         val actual = repository.getNotes()
 
@@ -65,13 +86,39 @@ internal class NotesRepositoryImplTest: TestBase() {
         assertEquals(expected, actual)
     }
 
-    private fun mock(
-        saveNotesResult: Boolean = randomResult(),
-        notesData: List<NoteData> = listOf(mockk()),
-        noteModel: NoteModel = mockk()
+    @Test
+    fun `Get notes with error return empty list`() = runTest {
+        mockGetNotes(getNotesException = Exception())
+
+        val actual = repository.getNotes()
+
+        val expected: List<NoteModel> = listOf()
+
+        assertEquals(expected, actual)
+    }
+
+    private fun mockCreateNote(
+        createNoteException: Exception? = null,
+        noteEntity: NoteEntity = mockk(),
     ) {
-        every { notesDataBase.saveNote(any()) } returns saveNotesResult
-        every { notesDataBase.getNotes() } returns notesData
+        createNoteException?.let { exception ->
+            coEvery { notesDao.createNote(any()) } throws exception
+        } ?: run {
+            coEvery { notesDao.createNote(any()) } just runs
+        }
+        every { noteEntityMapper.map(any()) } returns noteEntity
+    }
+
+    private fun mockGetNotes(
+        getNotesException: Exception? = null,
+        noteEntities: List<NoteEntity> = listOf(mockk()),
+        noteModel: NoteModel = mockk(),
+    ) {
+        getNotesException?.let { exception ->
+            coEvery { notesDao.getAllNotesOrderedByCreatedAt() } throws exception
+        } ?: run {
+            coEvery { notesDao.getAllNotesOrderedByCreatedAt() } returns noteEntities
+        }
         every { noteModelMapper.map(any()) } returns noteModel
     }
 }

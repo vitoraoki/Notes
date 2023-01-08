@@ -24,6 +24,10 @@ object Dependencies {
         "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
     const val navigationUiKtx = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
 
+    const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
+    const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
+    const val roomTesting = "androidx.room:room-testing:${Versions.room}"
+
     const val junit = "org.junit.jupiter:junit-jupiter:${Versions.junit}"
     const val mockk = "io.mockk:mockk:${Versions.mockk}"
     const val coroutinesTest =
