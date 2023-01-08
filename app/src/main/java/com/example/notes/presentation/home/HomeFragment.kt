@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.notes.R
 import com.example.notes.databinding.FragmentHomeBinding
+import com.example.notes.extensions.createNoteTransitionAnimation
 import com.example.notes.presentation.BaseFragment
 import com.example.notes.presentation.createnote.CreateNoteFragment
 import com.example.notes.presentation.home.layout.NotesScreen
@@ -78,6 +79,7 @@ class HomeFragment : BaseFragment(), HomeClickListener {
     }
 
     override fun onAddClick() {
-        findNavController().navigate(R.id.nav_create_note_fragment)
+        val options = createNoteTransitionAnimation()
+        findNavController().navigate(R.id.nav_create_note_fragment, null, options)
     }
 }
