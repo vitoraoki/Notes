@@ -17,6 +17,7 @@ import com.example.notes.presentation.BaseFragment
 import com.example.notes.presentation.createnote.CreateNoteFragment
 import com.example.notes.presentation.home.layout.NotesScreen
 import com.example.notes.presentation.home.listener.HomeClickListener
+import com.example.notes.presentation.model.SortAction
 import com.example.notes.ui.theme.NotesTheme
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -81,5 +82,9 @@ class HomeFragment : BaseFragment(), HomeClickListener {
     override fun onAddClick() {
         val options = createNoteTransitionAnimation()
         findNavController().navigate(R.id.nav_create_note_fragment, null, options)
+    }
+
+    override fun onSortClick(sortAction: SortAction) {
+        viewModel.sortNotes(sortAction)
     }
 }

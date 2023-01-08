@@ -1,7 +1,7 @@
 package com.example.notes.presentation.createnote
 
 import com.example.notes.base.TestBase
-import com.example.notes.domain.CreateNoteUseCase
+import com.example.notes.domain.usecase.CreateNoteUseCase
 import com.example.notes.extensions.TestCoroutineExtension
 import com.example.notes.presentation.model.CreateNoteUiModel
 import io.mockk.coEvery
@@ -9,7 +9,6 @@ import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -37,7 +36,7 @@ internal class CreateNoteViewModelTest: TestBase() {
 
     @Test
     fun `Assert createNote result`() = runTest {
-        val expected = randomResult()
+        val expected = randomBoolean()
         mock(saveNoteResult = expected)
 
         viewModel.createNote(mockk())
@@ -46,7 +45,7 @@ internal class CreateNoteViewModelTest: TestBase() {
         assertEquals(expected, actual)
     }
 
-    private fun mock(saveNoteResult: Boolean = randomResult()) {
+    private fun mock(saveNoteResult: Boolean = randomBoolean()) {
         coEvery { createNoteUseCase(any()) } returns saveNoteResult
     }
 }

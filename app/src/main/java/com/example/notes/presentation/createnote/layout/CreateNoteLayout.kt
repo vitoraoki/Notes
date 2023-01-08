@@ -115,7 +115,9 @@ private fun CloseScreenButton(listener: CreateNoteClickListener) {
     IconButton(onClick = listener::onCloseClick) {
         Icon(
             imageVector = Icons.Filled.Close,
-            contentDescription = "Close"
+            contentDescription = stringResource(
+                id = R.string.create_note_top_bar_close_button_description
+            )
         )
     }
 }

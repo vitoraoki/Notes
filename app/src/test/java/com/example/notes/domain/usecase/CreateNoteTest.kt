@@ -1,4 +1,4 @@
-package com.example.notes.domain
+package com.example.notes.domain.usecase
 
 import com.example.notes.data.repository.NotesRepository
 import com.example.notes.domain.mapper.CreateNoteUiModelToNoteModelMapper

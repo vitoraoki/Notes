@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.notes.di.keys.ViewModelKey
 import com.example.notes.di.scopes.AppScope
-import com.example.notes.domain.CreateNoteUseCase
+import com.example.notes.domain.usecase.CreateNoteUseCase
 import com.example.notes.presentation.model.CreateNoteUiModel
 import com.squareup.anvil.annotations.ContributesMultibinding
 import kotlinx.coroutines.flow.Flow

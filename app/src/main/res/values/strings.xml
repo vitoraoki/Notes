@@ -2,10 +2,16 @@
     <string name="app_name">Notes</string>
 
     <!-- Home -->
+    <string name="home_top_bar_title">Notes</string>
+    <string name="home_top_bar_sort_description">Sort</string>
+    <string name="home_top_bar_sort_asc">Ascending</string>
+    <string name="home_top_bar_sort_desc">Descending</string>
+    <string name="home_create_note_button_message">Create Note</string>
     <string name="home_create_note_success_message">Note created!</string>
 
     <!-- Create Note -->
     <string name="create_note_top_bar">Create Note</string>
+    <string name="create_note_top_bar_close_button_description">Close</string>
     <string name="create_note_title_label">Title</string>
     <string name="create_note_description_label">Description</string>
     <string name="create_note_priority_label">Priority</string>

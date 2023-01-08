@@ -1,11 +1,13 @@
-package com.example.notes.domain
+package com.example.notes.domain.usecase
 
 import com.example.notes.data.repository.NotesRepository
 import com.example.notes.domain.model.NoteModel
-import io.mockk.*
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 @ExperimentalCoroutinesApi
