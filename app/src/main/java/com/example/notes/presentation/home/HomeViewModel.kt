@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.notes.di.keys.ViewModelKey
 import com.example.notes.di.scopes.AppScope
+import com.example.notes.domain.usecase.DeleteNoteUseCase
 import com.example.notes.domain.usecase.GetNotesUseCase
 import com.example.notes.domain.usecase.SortNotesListUseCase
 import com.example.notes.presentation.mapper.NoteModelToNoteUiModelMapper
@@ -19,8 +20,9 @@ import javax.inject.Inject
 @ViewModelKey(HomeViewModel::class)
 class HomeViewModel @Inject constructor(
     private val getNotesUseCase: GetNotesUseCase,
-    private val noteModelUiMapper: NoteModelToNoteUiModelMapper,
+    private val noteUiModelMapper: NoteModelToNoteUiModelMapper,
     private val sortNotesList: SortNotesListUseCase,
+    private val deleteNoteUseCase: DeleteNoteUseCase,
 ) : ViewModel() {
 
     private val _notesFlow: MutableStateFlow<List<NoteUiModel>> = MutableStateFlow(listOf())
@@ -29,7 +31,7 @@ class HomeViewModel @Inject constructor(
 
     fun getNotes() {
         viewModelScope.launch {
-            _notesFlow.value = getNotesUseCase().map(noteModelUiMapper::map)
+            _notesFlow.value = getNotesUseCase().map(noteUiModelMapper::map)
         }
     }
 
@@ -38,6 +40,13 @@ class HomeViewModel @Inject constructor(
             notes.isNotEmpty()
         }?.let { notes ->
             _notesFlow.value = sortNotesList(notes, sortAction)
+        }
+    }
+
+    fun deleteNote(noteUiModel: NoteUiModel) {
+        viewModelScope.launch {
+            deleteNoteUseCase(noteUiModel)
+            _notesFlow.value = getNotesUseCase().map(noteUiModelMapper::map)
         }
     }
 }

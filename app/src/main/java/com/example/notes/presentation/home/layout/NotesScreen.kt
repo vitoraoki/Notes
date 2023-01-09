@@ -102,6 +102,7 @@ fun NotesScreenPreview() {
         NotesScreen(
             notes = listOf(
                 NoteUiModel(
+                    id = "",
                     title = "Note title",
                     description = "Note description",
                     createdAt = Date(System.currentTimeMillis()),
@@ -109,8 +110,8 @@ fun NotesScreenPreview() {
                 )
             ),
             listener = object : HomeClickListener {
-                override fun onClick(text: String) {}
-                override fun onLongClick(text: String) {}
+                override fun onClick(noteUiModel: NoteUiModel) {}
+                override fun onLongClick(noteUiModel: NoteUiModel) {}
                 override fun onAddClick() {}
                 override fun onSortClick(sortAction: SortAction) {}
             }

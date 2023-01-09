@@ -2,6 +2,7 @@ package com.example.notes.presentation.home
 
 import com.example.notes.base.TestBase
 import com.example.notes.domain.model.NoteModel
+import com.example.notes.domain.usecase.DeleteNoteUseCase
 import com.example.notes.domain.usecase.GetNotesUseCase
 import com.example.notes.domain.usecase.SortNotesListUseCase
 import com.example.notes.extensions.TestCoroutineExtension
@@ -21,17 +22,23 @@ import org.junit.jupiter.api.extension.ExtendWith
 internal class HomeViewModelTest: TestBase() {
 
     private val getNotesUseCase: GetNotesUseCase = mockk()
-    private val noteModelUiMapper: NoteModelToNoteUiModelMapper = mockk()
+    private val noteUiModelMapper: NoteModelToNoteUiModelMapper = mockk()
     private val sortNotesList: SortNotesListUseCase = mockk()
+    private val deleteNoteUseCase: DeleteNoteUseCase = mockk()
 
     private val viewModel = HomeViewModel(
         getNotesUseCase = getNotesUseCase,
-        noteModelUiMapper = noteModelUiMapper,
+        noteUiModelMapper = noteUiModelMapper,
         sortNotesList = sortNotesList,
+        deleteNoteUseCase = deleteNoteUseCase,
     )
 
+    init {
+        coEvery { deleteNoteUseCase(any()) } returns randomBoolean()
+    }
+
     @Test
-    fun `Verify calls getNotesUseCase and noteModelUiMapper`() = runTest {
+    fun `Verify calls getNotesUseCase and noteUiModelMapper`() = runTest {
         val noteModel: NoteModel = mockk()
         val notesModel: List<NoteModel> = listOf(noteModel)
         mock(notesModel = notesModel)
@@ -40,7 +47,7 @@ internal class HomeViewModelTest: TestBase() {
 
         coVerify(exactly = 1) {
             getNotesUseCase()
-            noteModelUiMapper.map(noteModel)
+            noteUiModelMapper.map(noteModel)
         }
     }
 
@@ -96,13 +103,41 @@ internal class HomeViewModelTest: TestBase() {
         assertEquals(expected, actual)
     }
 
+    @Test
+    fun `Verify calls of deleteNoteUseCase, getNotesUseCase and noteModelUiMapper`() = runTest {
+        val noteModel: NoteModel = mockk()
+        val noteUiModel: NoteUiModel = mockk()
+        mock(notesModel = listOf(noteModel))
+
+        viewModel.deleteNote(noteUiModel)
+
+        coVerify(exactly = 1) {
+            deleteNoteUseCase(noteUiModel)
+            getNotesUseCase()
+            noteUiModelMapper.map(noteModel)
+        }
+    }
+
+    @Test
+    fun `Assert updated notes after delete note`() = runTest {
+        val noteUiModel: NoteUiModel = mockk()
+        mock(noteUiModel = noteUiModel)
+
+        viewModel.deleteNote(mockk())
+        val actual = viewModel.notesFlow.first()
+
+        val expected = listOf(noteUiModel)
+
+        assertEquals(expected, actual)
+    }
+
     private fun mock(
         notesModel: List<NoteModel> = listOf(mockk()),
         noteUiModel: NoteUiModel = mockk(),
         notesUiModel: List<NoteUiModel> = listOf(mockk()),
     ) {
         coEvery { getNotesUseCase() } returns notesModel
-        every { noteModelUiMapper.map(any()) } returns noteUiModel
+        every { noteUiModelMapper.map(any()) } returns noteUiModel
         every { sortNotesList(any(), any()) } returns notesUiModel
     }
 }

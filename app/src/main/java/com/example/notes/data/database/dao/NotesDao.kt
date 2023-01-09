@@ -1,9 +1,6 @@
 package com.example.notes.data.database.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.notes.data.database.entities.COLUMN_CREATED_AT
 import com.example.notes.data.database.entities.NOTES_TABLE
 import com.example.notes.data.database.entities.NoteEntity
@@ -18,4 +15,7 @@ interface NotesDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun createNote(note: NoteEntity)
+
+    @Delete
+    suspend fun deleteNote(note: NoteEntity)
 }

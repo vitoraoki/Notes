@@ -12,9 +12,13 @@ const val COLUMN_PRIORITY = "priority"
 
 @Entity(tableName = NOTES_TABLE)
 data class NoteEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    @PrimaryKey(autoGenerate = true) val id: Long,
     @ColumnInfo(name = COLUMN_TITLE) val title: String,
     @ColumnInfo(name = COLUMN_DESCRIPTION) val description: String,
     @ColumnInfo(name = COLUMN_CREATED_AT) val createdAt: Long,
     @ColumnInfo(name = COLUMN_PRIORITY) val priority: String,
-)
+) {
+    companion object {
+        const val DEFAULT_ID = 0L
+    }
+}

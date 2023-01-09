@@ -12,12 +12,14 @@ internal class SortNotesListTest {
     private val useCase = SortNotesList()
 
     private val noteUiModel1 = NoteUiModel(
+        id = "id1",
         title = "title1",
         description = "description1",
         createdAt = Date(1),
         priority = NotePriorityUi.High,
     )
     private val noteUiModel2 = NoteUiModel(
+        id = "id2",
         title = "title2",
         description = "description2",
         createdAt = Date(2),

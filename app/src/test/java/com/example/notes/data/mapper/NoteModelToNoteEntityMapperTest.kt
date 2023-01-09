@@ -17,8 +17,9 @@ internal class NoteModelToNoteEntityMapperTest {
     private val priority = NotePriority.HIGH
 
     @Test
-    fun `Map from NoteModel to NoteEntity`() {
+    fun `Map from NoteModel to NoteEntity with default id`() {
         val noteModel = NoteModel(
+            id = "",
             title = title,
             description = description,
             createdAt = createdAt,
@@ -28,6 +29,32 @@ internal class NoteModelToNoteEntityMapperTest {
         val actual = mapper.map(noteModel)
 
         val expected = NoteEntity(
+            id = NoteEntity.DEFAULT_ID,
+            title = title,
+            description = description,
+            createdAt = createdAt.time,
+            priority = priority.name,
+        )
+
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun `Map from NoteModel to NoteEntity with id`() {
+        val id = 1L
+
+        val noteModel = NoteModel(
+            id = id.toString(),
+            title = title,
+            description = description,
+            createdAt = createdAt,
+            priority = priority
+        )
+
+        val actual = mapper.map(noteModel)
+
+        val expected = NoteEntity(
+            id = id,
             title = title,
             description = description,
             createdAt = createdAt.time,

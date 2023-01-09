@@ -43,10 +43,10 @@ fun NoteLayout(
             )
             .tapGestures(
                 onClick = {
-                    clickListener.onClick(text = uiModel.title)
+                    clickListener.onClick(noteUiModel = uiModel)
                 },
                 onLongClick = {
-                    clickListener.onLongClick(text = uiModel.title)
+                    clickListener.onLongClick(noteUiModel = uiModel)
                 },
             )
             .padding(10.dp),
@@ -105,14 +105,15 @@ fun RowPreview() {
     NotesTheme(darkTheme = true) {
         NoteLayout(
             uiModel = NoteUiModel(
+                id = "",
                 title = "Note title",
                 description = "Note description",
                 createdAt = Date(System.currentTimeMillis()),
                 priority = NotePriorityUi.High
             ),
             clickListener = object : NoteClickListener {
-                override fun onClick(text: String) {}
-                override fun onLongClick(text: String) {}
+                override fun onClick(noteUiModel: NoteUiModel) {}
+                override fun onLongClick(noteUiModel: NoteUiModel) {}
             }
         )
     }

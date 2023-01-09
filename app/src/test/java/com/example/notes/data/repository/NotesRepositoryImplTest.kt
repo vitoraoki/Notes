@@ -1,6 +1,5 @@
 package com.example.notes.data.repository
 
-import com.example.notes.base.TestBase
 import com.example.notes.data.database.dao.NotesDao
 import com.example.notes.data.database.entities.NoteEntity
 import com.example.notes.data.mapper.NoteEntityToNoteModelMapper
@@ -97,6 +96,39 @@ internal class NotesRepositoryImplTest {
         assertEquals(expected, actual)
     }
 
+    @Test
+    fun `Verify calls deleteNote`() = runTest {
+        val noteModel: NoteModel = mockk()
+        val noteEntity: NoteEntity = mockk()
+        mockDeleteNote(noteEntity = noteEntity)
+
+        repository.deleteNote(noteModel)
+
+        coVerify(exactly = 1) {
+            noteEntityMapper.map(noteModel)
+            notesDao.deleteNote(noteEntity)
+        }
+    }
+
+    @Test
+    fun `Delete note with success return true`() = runTest {
+        val noteEntity: NoteEntity = mockk()
+        mockDeleteNote(noteEntity = noteEntity)
+
+        val actual = repository.deleteNote(mockk())
+
+        assertTrue(actual)
+    }
+
+    @Test
+    fun `Delete note with error return false`() = runTest {
+        mockDeleteNote(deleteNoteException = Exception())
+
+        val actual = repository.deleteNote(mockk())
+
+        assertFalse(actual)
+    }
+
     private fun mockCreateNote(
         createNoteException: Exception? = null,
         noteEntity: NoteEntity = mockk(),
@@ -120,5 +152,17 @@ internal class NotesRepositoryImplTest {
             coEvery { notesDao.getAllNotesOrderedByCreatedAt() } returns noteEntities
         }
         every { noteModelMapper.map(any()) } returns noteModel
+    }
+
+    private fun mockDeleteNote(
+        deleteNoteException: Exception? = null,
+        noteEntity: NoteEntity = mockk(),
+    ) {
+        deleteNoteException?.let { exception ->
+            coEvery { notesDao.deleteNote(any()) } throws exception
+        } ?: run {
+            coEvery { notesDao.deleteNote(any()) } just runs
+        }
+        every { noteEntityMapper.map(any()) } returns noteEntity
     }
 }

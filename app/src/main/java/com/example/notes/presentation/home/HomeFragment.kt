@@ -17,6 +17,7 @@ import com.example.notes.presentation.BaseFragment
 import com.example.notes.presentation.createnote.CreateNoteFragment
 import com.example.notes.presentation.home.layout.NotesScreen
 import com.example.notes.presentation.home.listener.HomeClickListener
+import com.example.notes.presentation.model.NoteUiModel
 import com.example.notes.presentation.model.SortAction
 import com.example.notes.ui.theme.NotesTheme
 import kotlinx.coroutines.flow.launchIn
@@ -71,12 +72,16 @@ class HomeFragment : BaseFragment(), HomeClickListener {
         }
     }
 
-    override fun onClick(text: String) {
-        Toast.makeText(requireContext(), "Click - $text", Toast.LENGTH_SHORT).show()
+    override fun onClick(noteUiModel: NoteUiModel) {
+        val text = "Click - ${noteUiModel.title}"
+        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onLongClick(text: String) {
-        Toast.makeText(requireContext(), "Long Click - $text", Toast.LENGTH_SHORT).show()
+    override fun onLongClick(noteUiModel: NoteUiModel) {
+        deleteConfirmationDialog { dialog ->
+            viewModel.deleteNote(noteUiModel)
+            dialog.dismiss()
+        }
     }
 
     override fun onAddClick() {

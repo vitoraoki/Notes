@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.notes.R
 import com.example.notes.presentation.home.listener.HomeClickListener
+import com.example.notes.presentation.model.NoteUiModel
 import com.example.notes.presentation.model.SortAction
 
 @Composable
@@ -60,8 +61,8 @@ fun SortDropdownMenuPreview() {
         listener = object : HomeClickListener {
             override fun onAddClick() {}
             override fun onSortClick(sortAction: SortAction) {}
-            override fun onClick(text: String) {}
-            override fun onLongClick(text: String) {}
+            override fun onClick(noteUiModel: NoteUiModel) {}
+            override fun onLongClick(noteUiModel: NoteUiModel) {}
         }
     )
 }

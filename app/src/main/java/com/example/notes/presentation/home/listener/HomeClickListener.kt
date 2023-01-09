@@ -1,5 +1,6 @@
 package com.example.notes.presentation.home.listener
 
+import com.example.notes.presentation.model.NoteUiModel
 import com.example.notes.presentation.model.SortAction
 
 interface HomeClickListener: NoteClickListener {
@@ -8,6 +9,6 @@ interface HomeClickListener: NoteClickListener {
 }
 
 interface NoteClickListener {
-    fun onClick(text: String)
-    fun onLongClick(text: String)
+    fun onClick(noteUiModel: NoteUiModel)
+    fun onLongClick(noteUiModel: NoteUiModel)
 }

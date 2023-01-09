@@ -12,6 +12,7 @@ import javax.inject.Singleton
 interface NotesRepository {
     suspend fun createNote(noteModel: NoteModel): Boolean
     suspend fun getNotes(): List<NoteModel>
+    suspend fun deleteNote(noteModel: NoteModel): Boolean
 }
 
 @Singleton
@@ -34,5 +35,13 @@ class NotesRepositoryImpl @Inject constructor(
         notesDao.getAllNotesOrderedByCreatedAt().map(noteModelMapper::map)
     } catch (e: Exception) {
         listOf()
+    }
+
+    override suspend fun deleteNote(noteModel: NoteModel): Boolean = try {
+        val noteEntity = noteEntityMapper.map(noteModel)
+        notesDao.deleteNote(noteEntity)
+        true
+    } catch (e: Exception) {
+        false
     }
 }

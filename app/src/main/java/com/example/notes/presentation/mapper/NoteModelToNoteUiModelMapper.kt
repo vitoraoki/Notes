@@ -10,6 +10,7 @@ class NoteModelToNoteUiModelMapper @Inject constructor(
 
     fun map(noteModel: NoteModel): NoteUiModel =
         NoteUiModel(
+            id = noteModel.id,
             title = noteModel.title,
             description = noteModel.description,
             createdAt = noteModel.createdAt,
