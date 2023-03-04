@@ -9,6 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -70,13 +72,23 @@ private fun Title(title: String) {
 @Composable
 private fun Details(uiModel: NoteUiModel) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
+        modifier = Modifier.fillMaxWidth(),
     ) {
         Description(description = uiModel.description)
         NoteDate(date = uiModel.createdAt)
     }
+}
+
+@Composable
+private fun RowScope.Description(description: String) {
+    Text(
+        modifier = Modifier.weight(1f),
+        text = description,
+        color = Color.White,
+        fontSize = 12.sp,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+    )
 }
 
 @Composable
@@ -86,16 +98,8 @@ private fun NoteDate(date: Date) {
     Text(
         text = formattedDate,
         color = Color.White,
-        fontSize = 10.sp
-    )
-}
-
-@Composable
-private fun Description(description: String) {
-    Text(
-        text = description,
-        color = Color.White,
-        fontSize = 12.sp
+        fontSize = 10.sp,
+        textAlign = TextAlign.End
     )
 }
 
