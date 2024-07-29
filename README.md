@@ -2,7 +2,7 @@
 Notes App is an app to study some concepts of Android, Architecture and Dependency Injection. It works as a local note to store toughts, ideas, appointments, etc.
 
 # Technologies used
-Android Kotlin, Gradle DSL for dependencies management, Room database, Jetpack Compose, Jetpack Navigation, Anvil + Dagger.
+Android Kotlin, Gradle DSL for dependencies management, Room database, Jetpack Compose, Jetpack Navigation, Dagger Hilt.
 
 # Progress
 Notes can be created and deleted. Those notes are stored locally.
