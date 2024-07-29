@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -13,19 +14,20 @@ import androidx.navigation.fragment.findNavController
 import com.example.notes.R
 import com.example.notes.databinding.FragmentHomeBinding
 import com.example.notes.extensions.createNoteTransitionAnimation
-import com.example.notes.presentation.BaseFragment
 import com.example.notes.presentation.createnote.CreateNoteFragment
 import com.example.notes.presentation.home.layout.NotesScreen
 import com.example.notes.presentation.home.listener.HomeClickListener
 import com.example.notes.presentation.model.NoteUiModel
 import com.example.notes.presentation.model.SortAction
 import com.example.notes.ui.theme.NotesTheme
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-class HomeFragment : BaseFragment(), HomeClickListener {
+@AndroidEntryPoint
+class HomeFragment : Fragment(), HomeClickListener {
 
-    private val viewModel: HomeViewModel by viewModels { viewModelFactory }
+    private val viewModel: HomeViewModel by viewModels()
     private lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(

@@ -1,9 +1,7 @@
 package com.example.notes.domain.usecase
 
-import com.example.notes.di.scopes.AppScope
 import com.example.notes.presentation.model.NoteUiModel
 import com.example.notes.presentation.model.SortAction
-import com.squareup.anvil.annotations.ContributesBinding
 import javax.inject.Inject
 
 interface SortNotesListUseCase {
@@ -13,7 +11,6 @@ interface SortNotesListUseCase {
     ): List<NoteUiModel>
 }
 
-@ContributesBinding(AppScope::class)
 class SortNotesList @Inject constructor() : SortNotesListUseCase {
 
     override fun invoke(

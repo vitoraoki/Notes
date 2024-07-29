@@ -6,24 +6,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.notes.databinding.FragmentCreateNoteBinding
 import com.example.notes.domain.model.NotePriority
-import com.example.notes.presentation.BaseFragment
 import com.example.notes.presentation.createnote.layout.CreateNoteLayout
 import com.example.notes.presentation.createnote.listener.CreateNoteClickListener
 import com.example.notes.presentation.model.CreateNoteUiModel
 import com.example.notes.ui.theme.NotesTheme
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-class CreateNoteFragment : BaseFragment(), CreateNoteClickListener {
+@AndroidEntryPoint
+class CreateNoteFragment : Fragment(), CreateNoteClickListener {
 
     private lateinit var binding: FragmentCreateNoteBinding
-    private val viewModel: CreateNoteViewModel by viewModels { viewModelFactory }
+    private val viewModel: CreateNoteViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

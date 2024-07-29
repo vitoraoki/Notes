@@ -2,7 +2,11 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-    id 'com.squareup.anvil' version '2.4.1-1-6'
+    id 'com.google.dagger.hilt.android'
+}
+
+kapt {
+    correctErrorTypes true
 }
 
 android {
@@ -43,7 +47,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.1.1'
+        kotlinCompilerExtensionVersion '1.5.7'
     }
     packagingOptions {
         resources {
@@ -83,9 +87,9 @@ dependencies {
     implementation Dependencies.activityKtx
     implementation Dependencies.activityCompose
 
-    // Dagger 2
-    implementation Dependencies.dagger
-    kapt Dependencies.daggerCompiler
+    // Hilt
+    implementation Dependencies.hilt
+    kapt Dependencies.daggerHiltCompiler
 
     // Navigation
     implementation Dependencies.navigationFragmentKtx

@@ -1,5 +1,5 @@
 object Versions {
-    const val dagger = "2.44.2"
+    const val hilt = "2.51.1"
     const val activity = "1.6.1"
     const val lifecycle = "2.5.1"
     const val compose = "1.3.2"

@@ -1,6 +1,6 @@
 object Dependencies {
-    const val dagger = "com.google.dagger:dagger:${Versions.dagger}"
-    const val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
+    const val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
+    const val daggerHiltCompiler = "com.google.dagger:hilt-compiler:${Versions.hilt}"
 
     const val activityKtx = "androidx.activity:activity-ktx:${Versions.activity}"
     const val activityCompose = "androidx.activity:activity-compose:${Versions.activity}"

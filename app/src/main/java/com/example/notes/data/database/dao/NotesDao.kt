@@ -11,11 +11,11 @@ const val GET_ALL_NOTES = "SELECT * FROM $NOTES_TABLE ORDER BY $COLUMN_CREATED_A
 interface NotesDao {
 
     @Query(GET_ALL_NOTES)
-    suspend fun getAllNotesOrderedByCreatedAt(): List<NoteEntity>
+    fun getAllNotesOrderedByCreatedAt(): List<NoteEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun createNote(note: NoteEntity)
+    fun createNote(note: NoteEntity)
 
     @Delete
-    suspend fun deleteNote(note: NoteEntity)
+    fun deleteNote(note: NoteEntity)
 }
